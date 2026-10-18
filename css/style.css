@@ -779,8 +779,10 @@ button {
   margin-top: 48px;
 }
 }
+@media (min-width: 768px) {
 .btn-wrap--left {
   text-align: left;
+}
 }
 .text-link {
   display: inline-flex;
@@ -2302,6 +2304,10 @@ button {
 }
 @media (max-width: 767px) {
 .btn-row {
+  display: grid;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
   gap: 10px;
 }
 }
