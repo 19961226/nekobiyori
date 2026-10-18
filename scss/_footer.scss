@@ -1,0 +1,209 @@
+// ==========================================================
+// 予約CTA（全ページ共通）・共通フッター
+// ==========================================================
+@use "variables" as *;
+@use "mixins" as *;
+
+// --- 予約CTA ---
+.cta {
+  padding: 72px 0;
+  @include tab {
+    padding: 96px 0;
+  }
+  &__box {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 24px;
+    border-radius: $radius-lg;
+    background: $green-deep;
+    color: $white;
+    text-align: center;
+    @include tab {
+      padding: 64px 48px;
+    }
+  }
+  // しっぽの装飾
+  &__deco {
+    position: absolute;
+    right: -10px;
+    bottom: -14px;
+    width: 160px;
+    height: 160px;
+    fill: none;
+    stroke: rgba(255, 253, 249, 0.22);
+    stroke-width: 10;
+    stroke-linecap: round;
+    @include tab {
+      width: 220px;
+      height: 220px;
+    }
+  }
+  &__deco--left {
+    left: -20px;
+    right: auto;
+    top: -30px;
+    bottom: auto;
+    transform: scaleX(-1) rotate(160deg);
+  }
+  &__en {
+    font-family: $font-heading;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+  }
+  &__title {
+    margin: 8px 0 12px;
+    font-size: 26px;
+    @include tab {
+      font-size: 32px;
+    }
+  }
+  &__text {
+    margin-bottom: 28px;
+    font-size: 16px;
+  }
+  &__buttons {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // 来店予約ボタンと「譲渡のご相談はこちら」の間
+    gap: 24px;
+    @include tab {
+      flex-direction: row;
+      justify-content: center;
+      gap: 40px;
+    }
+  }
+  &__sub {
+    color: $white;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    @include hover {
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  &__tel {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+}
+
+// --- フッター ---
+.footer {
+  padding: 64px 0 32px;
+  // ロゴ（背景なし）が見やすい、明るいくすみグリーン
+  background: $green-pale;
+  color: $brown;
+  &__grid {
+    display: grid;
+    gap: 40px;
+    @include pc {
+      grid-template-columns: 1.1fr 1.6fr;
+      gap: 64px;
+    }
+  }
+  &__logo {
+    display: inline-block;
+    margin-bottom: 20px;
+    // スマホは左右中央
+    @include sp {
+      display: block;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    img {
+      width: auto;
+      height: 120px;
+    }
+  }
+  &__info {
+    font-size: 15px;
+    line-height: 2;
+    dt {
+      float: left;
+      clear: left;
+      width: 5.5em;
+      font-weight: 700;
+      color: $green-deep;
+    }
+    dd {
+      margin-left: 5.5em;
+    }
+  }
+  &__nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px 12px;
+    @include tab {
+      gap: 4px 20px;
+    }
+    @include tab {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 15px;
+      white-space: nowrap;
+      // スマホは2列に収まる大きさ（2行にならない）
+      @include sp {
+        gap: 6px;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+      svg {
+        width: 12px;
+        height: 12px;
+        fill: $terracotta;
+      }
+      @include hover {
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+  &__sns {
+    display: inline-flex;
+    // スマホは左右中央
+    @include sp {
+      display: flex;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 10px 20px;
+    border: 1px solid rgba(87, 72, 61, 0.35);
+    border-radius: 999px;
+    font-size: 15px;
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+    @include hover {
+      &:hover {
+        background: rgba(255, 253, 249, 0.6);
+      }
+    }
+  }
+  &__copy {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(87, 72, 61, 0.15);
+    font-size: 13px;
+    text-align: center;
+    color: $brown-soft;
+  }
+}
