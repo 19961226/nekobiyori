@@ -1,0 +1,1780 @@
+// ==========================================================
+// コンポーネント（ボタン・見出し・カードなど）
+// ==========================================================
+@use "variables" as *;
+@use "mixins" as *;
+
+// ----------------------------------------------------------
+// ボタン（アニメーション4：予約ボタンのホバー）
+// ----------------------------------------------------------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 28px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-family: $font-heading;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-align: center;
+  transition: background-color 0.3s $ease, color 0.3s $ease, border-color 0.3s $ease, box-shadow 0.3s $ease;
+  // 矢印（線と矢じりを1つのSVGにして、ずれないようにする。色は文字色に合わせる）
+  &__arrow {
+    flex-shrink: 0;
+    display: block;
+    width: 18px;
+    height: 12px;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M1 6h15M11 1.5 16 6l-5 4.5' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M1 6h15M11 1.5 16 6l-5 4.5' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform 0.3s $ease;
+  }
+  @include hover {
+    &:hover .btn__arrow {
+      transform: translateX(5px);
+    }
+  }
+  // 予約ボタン（テラコッタ）
+  &--reserve {
+    background: $terracotta;
+    color: $white;
+    box-shadow: 0 4px 0 rgba(169, 101, 79, 0.25);
+    @include hover {
+      &:hover {
+        background: $terracotta-deep;
+      }
+    }
+  }
+  // 通常ボタン（くすみグリーン）
+  &--main {
+    background: $green-deep;
+    color: $white;
+    @include hover {
+      &:hover {
+        background: $green-darker;
+      }
+    }
+  }
+  // 枠線ボタン
+  &--outline {
+    border-color: $green-deep;
+    background: transparent;
+    color: $green-deep;
+    @include hover {
+      &:hover {
+        background: $green-deep;
+        color: $white;
+      }
+    }
+  }
+  // CTA 内の白枠ボタン
+  &--light {
+    border-color: $white;
+    color: $white;
+    @include hover {
+      &:hover {
+        background: $white;
+        color: $green-deep;
+      }
+    }
+  }
+  &--lg {
+    min-height: 60px;
+    padding: 14px 40px;
+    font-size: 17px;
+  }
+  &--sm {
+    min-height: 44px;
+    padding: 8px 20px;
+    font-size: 15px;
+  }
+  &--block {
+    width: 100%;
+  }
+}
+
+.btn-wrap {
+  margin-top: 40px;
+  text-align: center;
+  @include tab {
+    margin-top: 48px;
+  }
+  // 左寄せはタブレット以上のみ（スマホは中央）
+  &--left {
+    @include tab {
+      text-align: left;
+    }
+  }
+}
+
+// テキストリンク（矢印付き）
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $green-deep;
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+  @include hover {
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// 見出し（猫の耳・肉球モチーフ）
+// ----------------------------------------------------------
+.sec-title {
+  margin-bottom: 40px;
+  text-align: center;
+  @include tab {
+    margin-bottom: 56px;
+  }
+  &__en {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-heading;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: $green-deep;
+    text-transform: uppercase;
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: $terracotta;
+    }
+  }
+  &__ja {
+    position: relative;
+    display: block;
+    margin-top: 6px;
+    font-size: 26px;
+    @include tab {
+      font-size: 32px;
+    }
+  }
+  &__lead {
+    max-width: 640px;
+    margin: 16px auto 0;
+    font-size: 16px;
+  }
+  &--left {
+    text-align: left;
+    .sec-title__lead {
+      margin-left: 0;
+    }
+  }
+}
+
+// 小見出し
+.sub-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 21px;
+  @include tab {
+    font-size: 23px;
+  }
+  // 猫の耳
+  &::before {
+    content: "";
+    flex-shrink: 0;
+    width: 22px;
+    height: 16px;
+    background: $green;
+    clip-path: polygon(0 100%, 12% 0, 42% 46%, 58% 46%, 88% 0, 100% 100%);
+  }
+}
+
+// 区切り線（しっぽの波線）
+.divider {
+  display: block;
+  width: 140px;
+  height: 24px;
+  margin: 0 auto;
+  fill: none;
+  stroke: $green;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+// ----------------------------------------------------------
+// 下層ページのタイトル（小さめの写真付き）
+// ----------------------------------------------------------
+.page-header {
+  padding: calc(#{$header-h-sp} + 32px) 0 40px;
+  @include tab {
+    padding: calc(#{$header-h} + 48px) 0 56px;
+  }
+  &__inner {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+    @include tab {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 48px;
+    }
+  }
+  &__en {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-heading;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: $green-deep;
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: $terracotta;
+    }
+  }
+  &__title {
+    margin-top: 6px;
+    font-size: 30px;
+    @include tab {
+      font-size: 38px;
+    }
+  }
+  &__lead {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+  &__photo {
+    // 2:1（猫が見切れにくい横長）
+    aspect-ratio: 2 / 1;
+    img {
+      @include photo;
+    }
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: $brown-soft;
+  li + li::before {
+    content: "/";
+    margin-right: 10px;
+    color: $line;
+  }
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+// ----------------------------------------------------------
+// カード（アニメーション3：ホバーで写真拡大＋浮く）
+// ----------------------------------------------------------
+.card {
+  display: block;
+  overflow: hidden;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: $shadow;
+  transition: transform 0.4s $ease, box-shadow 0.4s $ease;
+  &__photo {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: $ivory-deep;
+      transition: transform 0.6s $ease;
+    }
+  }
+  &__body {
+    padding: 22px 22px 26px;
+  }
+  &__title {
+    margin-bottom: 8px;
+    font-size: 19px;
+  }
+  &__text {
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  @include hover {
+    &:hover,
+    &.is-link:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-hover;
+    }
+    &:hover .card__photo img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.card-grid {
+  display: grid;
+  gap: 24px;
+  @include tab {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include pc {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  &--4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    @include pc {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// タグ・ラベル
+// ----------------------------------------------------------
+.tag {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: $green-pale;
+  color: $brown;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.8;
+  white-space: nowrap;
+  &--stay {
+    background: $green-pale;
+  }
+  &--adopt {
+    background: $terracotta-pale;
+  }
+  &--home {
+    background: $ivory-deep;
+    color: $brown-soft;
+  }
+  // お知らせのカテゴリ（種類ごとに色分け）
+  &--business {
+    background: #DCE3D6;
+    color: #4A5A45;
+  }
+  &--cats {
+    background: #DCE6E7;
+    color: #3F5558;
+  }
+  &--event {
+    background: #F3E1D6;
+    color: #7A4530;
+  }
+  // 臨時休業は目立つように塗りつぶし
+  &--closed {
+    background: #A65A45;
+    color: #FFFDF9;
+  }
+  &--sample {
+    background: transparent;
+    border: 1px dashed $brown-soft;
+    color: $brown-soft;
+    font-size: 12px;
+  }
+}
+
+// プレースホルダー（確認できない情報）
+.ph {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(-45deg, $ivory-deep, $ivory-deep 6px, $white 6px, $white 12px);
+  color: $brown-soft;
+  font-size: 0.92em;
+}
+
+.ph-box {
+  padding: 18px 20px;
+  border: 2px dashed $line;
+  border-radius: $radius;
+  color: $brown-soft;
+  font-size: 15px;
+  text-align: center;
+}
+
+// 注意書き
+.note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: $brown-soft;
+  &--center {
+    text-align: center;
+  }
+}
+
+// 譲渡についての注意ボックス
+.notice {
+  display: flex;
+  gap: 14px;
+  padding: 20px 22px;
+  border-radius: $radius;
+  background: $terracotta-pale;
+  font-size: 15px;
+  svg {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+    fill: $brown;
+  }
+  strong {
+    color: $brown-deep;
+  }
+}
+
+// ----------------------------------------------------------
+// ステップ（ご利用の流れ・譲渡の流れ）
+// ----------------------------------------------------------
+.steps {
+  // 矢印を入れるため、カードの間は広めに取る
+  $arrow-gap: 40px;
+  display: grid;
+  gap: $arrow-gap;
+  counter-reset: step;
+  // スマホ・タブレット：縦に並べて、下向きの矢印でつなぐ
+  max-width: 560px;
+  margin: 0 auto;
+  @include pc {
+    max-width: none;
+  }
+  &--4 {
+    @include pc {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  &--5 {
+    @include pc {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  &__item {
+    position: relative;
+    padding: 28px 22px 24px;
+    border-radius: $radius;
+    background: $white;
+    box-shadow: $shadow;
+    counter-increment: step;
+    // 次のステップへの矢印（最後のカード以外）
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: calc(100% + #{$arrow-gap} / 2);
+      width: 26px;
+      height: 16px;
+      // 角を丸くした三角（テラコッタ）
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 16'%3E%3Cpolygon points='4,4 22,4 13,12' fill='%23D49A7E' stroke='%23D49A7E' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+      transform: translate(-50%, -50%);
+      @include pc {
+        // PC：横に並べて、右向きの矢印でつなぐ
+        left: calc(100% + #{$arrow-gap} / 2);
+        top: 50%;
+        width: 16px;
+        height: 26px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 26'%3E%3Cpolygon points='4,4 12,13 4,22' fill='%23D49A7E' stroke='%23D49A7E' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E");
+      }
+    }
+  }
+  &__num {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-family: $font-heading;
+    font-weight: 700;
+    color: $green-deep;
+    &::before {
+      content: counter(step, decimal-leading-zero);
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: $green-pale;
+      font-size: 18px;
+    }
+  }
+  &__title {
+    margin-bottom: 6px;
+    font-size: 18px;
+  }
+  &__text {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+// ----------------------------------------------------------
+// 料金プラン（上部に名前と価格、下に項目の表。おすすめには猫がのぞく）
+// ----------------------------------------------------------
+// 猫の画像のうち、カードより上に出る高さ
+$plan-peek-h: 128px;
+
+.plans {
+  display: grid;
+  gap: 40px;
+  max-width: 420px;
+  margin: 0 auto;
+  @include tab {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1040px;
+    // 真ん中のカードの上にのぞく猫の分
+    padding-top: calc(#{$plan-peek-h} - 18px);
+  }
+  @include pc {
+    gap: 28px;
+  }
+  &__notes {
+    max-width: 1040px;
+    margin: 32px auto 0;
+    font-size: 14px;
+    // スマホは左揃え（※はぶら下げ）、タブレット以上は中央
+    li {
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+    @include tab {
+      text-align: center;
+      li {
+        padding-left: 0;
+        text-indent: 0;
+      }
+    }
+    li + li {
+      margin-top: 6px;
+    }
+    li::before {
+      content: "※";
+      display: inline-block;
+      width: 1.2em;
+      text-indent: 0;
+    }
+  }
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+  border-radius: 28px;
+  background: $white;
+  box-shadow: 0 10px 28px rgba(59, 47, 39, 0.12);
+  &__head {
+    padding: 34px 20px 24px;
+    text-align: center;
+  }
+  &__name {
+    font-size: 20px;
+    color: $green-deep;
+    @include pc {
+      font-size: 22px;
+    }
+  }
+  &__price {
+    margin-top: 8px;
+    font-family: $font-heading;
+    font-size: 18px;
+    font-weight: 700;
+    color: $brown;
+  }
+  &__price-num {
+    margin-right: 2px;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    color: $terracotta-deep;
+    @include pc {
+      font-size: 50px;
+    }
+  }
+  // 項目の表（1行おきに薄い色）
+  &__list {
+    margin: 0;
+  }
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 54px;
+    padding: 6px 24px;
+    &:nth-child(odd) {
+      background: #F1F4EE;
+    }
+    dt {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    dd {
+      font-family: $font-heading;
+      font-size: 15px;
+      font-weight: 700;
+      color: $brown;
+    }
+  }
+  &__num {
+    margin-right: 2px;
+    font-size: 24px;
+    color: $green-deep;
+  }
+  &__note {
+    margin-top: 18px;
+    padding: 0 20px;
+    font-size: 14px;
+    text-align: center;
+    color: $brown-soft;
+  }
+  // おすすめ
+  &--recommend {
+    // スマホ：猫が出てきたら、猫の高さ分だけカードを下にスライド（猫の上のすき間が見た目40pxのまま）
+    margin-top: 0;
+    transition: margin-top 0.5s $ease;
+    &.is-peek {
+      margin-top: $plan-peek-h;
+      @include tab {
+        margin-top: 0;
+      }
+    }
+    box-shadow: 0 0 0 3px $terracotta, 0 10px 28px rgba(59, 47, 39, 0.16);
+  }
+  &__badge {
+    position: absolute;
+    top: -18px;
+    right: -6px;
+    z-index: 3;
+    @include tab {
+      right: -14px;
+    }
+    display: grid;
+    place-items: center;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: $terracotta;
+    color: $white;
+    font-family: $font-heading;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(59, 47, 39, 0.15);
+  }
+  // カードのふちからのぞく猫
+  // 画像（幅150px）の胴の切れ目は、上から約124pxの位置。
+  // ・peek-body：切れ目より上だけを、カードの外枠（3px）の上端で切って表示（カードの向こうから出てくる）
+  // ・peek-paws：切れ目より下の前足だけを、カードのふちにかけて表示
+  // どちらも切れ目の位置で切っているので、背景のグリーンや画像の切れ目は見えない
+  &__peek {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 3px);
+    z-index: 2;
+    width: 150px;
+    height: 124px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    img {
+      display: block;
+      width: 150px;
+      max-width: none;
+      height: auto;
+      transform: translateY(105%);
+    }
+  }
+  &__peek-body {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+  }
+  &__peek-paws {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 8px);
+    overflow: hidden;
+    img {
+      clip-path: inset(124px 0 0 0);
+    }
+  }
+  // 「ひょこっ」：出てきたあと、少し沈んでまた顔を出す。
+  // 最終位置より上には行かないので、胴の切れ目は常にカードのふちに隠れたまま
+  &.is-peek &__peek img {
+    animation: plan-peek 1s cubic-bezier(0.25, 0.8, 0.35, 1) 0.3s both;
+    @include reduced {
+      animation: none;
+      transform: none;
+    }
+  }
+  // 前足は、猫が出きってから枠にかける（動いている間は出さないので、枠の線が途切れない）
+  &.is-peek &__peek-paws img {
+    transform: none;
+    animation: plan-peek-paws 0.3s ease-out 1.3s both;
+    @include reduced {
+      animation: none;
+    }
+  }
+}
+
+@keyframes plan-peek-paws {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes plan-peek {
+  0% {
+    transform: translateY(105%);
+  }
+  45% {
+    transform: translateY(0);
+  }
+  65% {
+    transform: translateY(9%);
+  }
+  85%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+// 濃いグリーンの背景のセクション（料金）
+.section--green {
+  background: $green-deep;
+  color: $white;
+  .sec-title__en,
+  .sec-title__ja,
+  .sec-title__lead {
+    color: $white;
+  }
+  .sec-title__en svg {
+    fill: $terracotta-pale;
+  }
+  .plan {
+    color: $brown;
+  }
+}
+
+// ----------------------------------------------------------
+// 絞り込みボタン
+// ----------------------------------------------------------
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  &__btn {
+    min-height: 44px;
+    padding: 6px 20px;
+    border: 2px solid $green-deep;
+    border-radius: 999px;
+    background: transparent;
+    color: $green-deep;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background-color 0.3s $ease, color 0.3s $ease;
+    &[aria-pressed="true"] {
+      background: $green-deep;
+      color: $white;
+    }
+    @include hover {
+      &:hover {
+        background: $green-pale;
+      }
+      &[aria-pressed="true"]:hover {
+        background: $green-darker;
+      }
+    }
+  }
+}
+
+// アニメーション6：絞り込みで入れ替わるときのふわっと表示
+.is-filter-in {
+  animation: filterIn 0.5s $ease both;
+}
+
+@keyframes filterIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ----------------------------------------------------------
+// 猫カード
+// Canva「ブルー 猫 カフェ お知らせ チラシ A4」のレイアウトを反映
+// 名前（性別）→ 猫耳つきのアーチ型写真 → 性格の吹き出し＋肉球スタンプ
+// ----------------------------------------------------------
+.cat-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px 16px;
+  @include tab {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
+  }
+  // トップ：スマホは4匹（2×2）、タブレット以上は3匹
+  &--preview {
+    @include tab {
+      .cat-card:nth-child(n + 4) {
+        display: none;
+      }
+    }
+  }
+}
+
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+  &__name {
+    margin-bottom: 18px;
+    font-family: $font-heading;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    @include tab {
+      font-size: 22px;
+    }
+  }
+  &__sex {
+    font-size: 0.85em;
+  }
+  // 白いフチ＋猫耳
+  &__frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    padding: 5px;
+    border-radius: 999px 999px 28px 28px;
+    background: $white;
+    box-shadow: $shadow;
+    transition: transform 0.4s $ease, box-shadow 0.4s $ease;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: -14px;
+      width: 30px;
+      height: 34px;
+      background: $white;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      @include tab {
+        top: -16px;
+        width: 36px;
+        height: 40px;
+      }
+    }
+    &::before {
+      left: 12%;
+      transform: rotate(-24deg);
+    }
+    &::after {
+      right: 12%;
+      transform: rotate(24deg);
+    }
+  }
+  // アーチ型の写真
+  &__photo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 190 / 197;
+    border-radius: 999px 999px 24px 24px;
+    background: $ivory-deep;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s $ease;
+    }
+  }
+  &__status {
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+    z-index: 2;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 6px rgba(87, 72, 61, 0.12);
+  }
+  // 性格の吹き出し（右下に肉球スタンプ）
+  &__personality {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 270px;
+    margin-top: 24px;
+    padding: 16px 14px 18px;
+    border-radius: 12px;
+    background: $white;
+    font-family: $font-heading;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.6;
+    box-shadow: $shadow;
+    @include tab {
+      font-size: 17px;
+      padding: 18px 16px 20px;
+    }
+  }
+  &__paw {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    width: 22px;
+    height: 22px;
+    // 見出しなどの肉球と同じテラコッタ色
+    fill: $terracotta;
+    transform: rotate(24deg);
+  }
+  &__more {
+    display: inline-block;
+    margin-top: 12px;
+    color: $brown;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid currentColor;
+  }
+  @include hover {
+    &:hover .cat-card__frame {
+      transform: translateY(-4px);
+      box-shadow: $shadow-hover;
+    }
+    &:hover .cat-card__photo img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// 猫たちのセクション背景（チラシのブルーグレー）
+.section--cats {
+  // フッターと同じ、明るいくすみグリーン
+  background: $green-pale;
+  .sec-title__en,
+  .sec-title__ja,
+  .sec-title__lead {
+    color: $brown-deep;
+  }
+  .note {
+    color: $brown-deep;
+  }
+}
+
+// 「おねがい」ボックス（チラシ下部のレイアウト）
+.onegai {
+  position: relative;
+  max-width: 720px;
+  margin: 56px auto 0;
+  padding: 30px 24px 22px;
+  border-radius: 14px;
+  background: $white;
+  text-align: center;
+  font-family: $font-heading;
+  font-size: 17px;
+  font-weight: 700;
+  @include tab {
+    font-size: 19px;
+  }
+  &__label {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    padding: 4px 22px 0;
+    border-radius: 999px 999px 0 0;
+    background: $white;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    transform: translateX(-50%);
+  }
+}
+
+// ----------------------------------------------------------
+// モーダル（猫の詳細）
+// ----------------------------------------------------------
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s $ease, visibility 0.35s $ease;
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    .modal__dialog {
+      transform: none;
+    }
+  }
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(59, 47, 39, 0.55);
+  }
+  &__dialog {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    border-radius: $radius-lg;
+    background: $white;
+    transform: translateY(16px);
+    transition: transform 0.35s $ease;
+  }
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: $ivory;
+    color: $brown;
+    font-size: 24px;
+    line-height: 1;
+    @include hover {
+      &:hover {
+        background: $ivory-deep;
+      }
+    }
+  }
+  &__content {
+    display: grid;
+    @include tab {
+      grid-template-columns: 1fr 1.1fr;
+    }
+  }
+  &__photo {
+    aspect-ratio: 1 / 1;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: $ivory-deep;
+    }
+  }
+  &__body {
+    padding: 28px 24px 32px;
+    @include tab {
+      padding: 40px 32px;
+    }
+  }
+  &__name {
+    margin: 10px 0 12px;
+    font-size: 26px;
+  }
+  &__dl {
+    display: grid;
+    grid-template-columns: 6em 1fr;
+    gap: 6px 12px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    dt {
+      color: $brown-soft;
+    }
+  }
+  &__story-title {
+    margin-bottom: 6px;
+    font-size: 17px;
+  }
+  &__story {
+    font-size: 15px;
+  }
+  // ボタン：写真と文章の下、左右中央。スマホは縦、タブレット以上は横並び（同じ幅）
+  &__actions {
+    display: grid;
+    grid-template-columns: max-content;
+    justify-content: center;
+    gap: 10px;
+    padding: 4px 24px 32px;
+    @include tab {
+      grid-column: 1 / -1;
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      // 幅は文字数に合わせる（長い方のボタンにそろえる）
+      width: fit-content;
+      margin: 0 auto;
+      gap: 14px;
+      padding: 28px 32px 36px;
+    }
+    .btn {
+      white-space: nowrap;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// アコーディオン（アニメーション5）
+// ----------------------------------------------------------
+.accordion {
+  display: grid;
+  gap: 14px;
+  &__item {
+    overflow: hidden;
+    border-radius: $radius;
+    background: $white;
+    box-shadow: $shadow;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 20px 56px 20px 20px;
+    border: none;
+    background: transparent;
+    font-family: $font-heading;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: left;
+    position: relative;
+    @include tab {
+      padding: 22px 64px 22px 28px;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 24px;
+      width: 10px;
+      height: 10px;
+      margin-top: -7px;
+      border-right: 2px solid $green-deep;
+      border-bottom: 2px solid $green-deep;
+      transform: rotate(45deg);
+      transition: transform 0.35s $ease;
+    }
+    &[aria-expanded="true"]::after {
+      transform: translateY(5px) rotate(-135deg);
+    }
+  }
+  &__q,
+  &__a {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-family: $font-heading;
+    font-weight: 700;
+  }
+  &__q {
+    background: $green-deep;
+    color: $white;
+  }
+  &__a {
+    background: $terracotta-pale;
+    color: $brown-deep;
+  }
+  &__panel {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s $ease;
+  }
+  &__inner {
+    display: flex;
+    gap: 14px;
+    padding: 0 20px 24px;
+    font-size: 15px;
+    @include tab {
+      padding: 0 28px 26px;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// お知らせ
+// ----------------------------------------------------------
+.news-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid $line;
+  &__item {
+    border-bottom: 1px solid $line;
+  }
+  &__link {
+    display: grid;
+    gap: 4px 16px;
+    padding: 18px 4px;
+    @include tab {
+      grid-template-columns: auto auto 1fr;
+      align-items: center;
+      padding: 22px 8px;
+    }
+    @include hover {
+      &:hover .news-list__title {
+        color: $green-deep;
+      }
+    }
+  }
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    @include tab {
+      display: contents;
+    }
+  }
+  &__date {
+    font-size: 14px;
+    color: $brown-soft;
+  }
+  &__title {
+    transition: color 0.3s $ease;
+  }
+}
+
+.news-cards {
+  display: grid;
+  gap: 24px;
+  @include tab {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card__photo {
+    aspect-ratio: 16 / 9;
+  }
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: $brown-soft;
+  }
+}
+
+// ----------------------------------------------------------
+// 表
+// ----------------------------------------------------------
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  th,
+  td {
+    padding: 16px 14px;
+    border-bottom: 1px solid $line;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    width: 32%;
+    font-weight: 700;
+    color: $brown;
+    background: rgba(220, 227, 214, 0.35);
+    @include tab {
+      width: 26%;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// フォーム
+// ----------------------------------------------------------
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: -1px;
+  &__btn {
+    min-height: 56px;
+    padding: 12px;
+    border: none;
+    border-radius: $radius $radius 0 0;
+    background: $ivory-deep;
+    color: $brown-soft;
+    font-family: $font-heading;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color 0.3s $ease, color 0.3s $ease;
+    @include tab {
+      font-size: 18px;
+    }
+    &[aria-selected="true"] {
+      background: $white;
+      color: $brown;
+    }
+  }
+}
+
+.tab-panel {
+  padding: 32px 20px 40px;
+  border-radius: 0 0 $radius $radius;
+  background: $white;
+  box-shadow: $shadow;
+  @include tab {
+    padding: 48px 48px 56px;
+  }
+  &[hidden] {
+    display: none;
+  }
+}
+
+.form {
+  &__row {
+    margin-bottom: 24px;
+  }
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  &__req,
+  &__opt {
+    padding: 0 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+  // 同意チェックの文中にある「必須」も、他の項目と同じ大きさに
+  &__check &__req {
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  &__req {
+    background: $terracotta;
+    color: $brown-deep;
+  }
+  &__opt {
+    background: $ivory-deep;
+    color: $brown-soft;
+  }
+  &__input,
+  &__select,
+  &__textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+    border: 1px solid $line;
+    border-radius: 10px;
+    background-color: $ivory;
+    font-size: 16px;
+    transition: border-color 0.3s $ease, background-color 0.3s $ease;
+    &:focus {
+      outline: none;
+      border-color: $green-deep;
+      background-color: $white;
+    }
+    &.is-error {
+      border-color: #B5543B;
+      background-color: #FBF0EB;
+    }
+  }
+  // プルダウン：矢印を内側に寄せて、右に余白をとる
+  &__select {
+    padding-right: 52px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%235F7259' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 14px 9px;
+    cursor: pointer;
+  }
+  &__textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+  &__cols {
+    display: grid;
+    gap: 0 20px;
+    @include tab {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  &__radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+    }
+  }
+  // 個人情報の取り扱いへの同意だけ、左右中央に配置
+  &__row--agree {
+    text-align: center;
+  }
+  &__check {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    input {
+      margin-top: 6px;
+    }
+  }
+  input[type="radio"],
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: $green-deep;
+  }
+  &__error {
+    display: none;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #A2462F;
+    &.is-show {
+      display: block;
+    }
+  }
+  &__submit {
+    margin-top: 32px;
+    text-align: center;
+  }
+  &__result {
+    display: none;
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 10px;
+    background: $green-pale;
+    font-weight: 700;
+    text-align: center;
+    &.is-show {
+      display: block;
+    }
+  }
+}
+
+// ----------------------------------------------------------
+// 営業カレンダー
+// ----------------------------------------------------------
+.calendars {
+  display: grid;
+  gap: 24px;
+  @include tab {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.calendar {
+  padding: 24px 18px;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: $shadow;
+  &__title {
+    margin-bottom: 14px;
+    font-size: 18px;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 14px;
+    text-align: center;
+  }
+  th {
+    padding: 4px 0 8px;
+    font-weight: 700;
+    color: $brown-soft;
+  }
+  td {
+    padding: 3px;
+  }
+  &__day {
+    display: grid;
+    place-items: center;
+    height: 38px;
+    border-radius: 10px;
+    &.is-closed {
+      background: $terracotta-pale;
+      color: #9A5A40;
+      font-weight: 700;
+    }
+    &.is-today {
+      box-shadow: inset 0 0 0 2px $green-deep;
+      font-weight: 700;
+    }
+  }
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  font-size: 14px;
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    &::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: $white;
+      border: 1px solid $line;
+    }
+  }
+  .is-closed::before {
+    background: $terracotta-pale;
+    border-color: $terracotta-pale;
+  }
+  .is-today::before {
+    box-shadow: inset 0 0 0 2px $green-deep;
+  }
+}
+
+// ----------------------------------------------------------
+// 地図
+// ----------------------------------------------------------
+.map {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: $radius;
+  background: $ivory-deep;
+  @include tab {
+    aspect-ratio: 16 / 10;
+  }
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+// ----------------------------------------------------------
+// 写真＋テキストの2カラム
+// ----------------------------------------------------------
+.media {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+  @include tab {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+  & + & {
+    margin-top: 64px;
+    @include tab {
+      margin-top: 96px;
+    }
+  }
+  &__photo {
+    aspect-ratio: 4 / 3;
+    img {
+      @include photo;
+    }
+  }
+  &--reverse {
+    @include tab {
+      .media__photo {
+        order: 2;
+      }
+    }
+  }
+  &__text {
+    p + p {
+      margin-top: 1em;
+    }
+  }
+}
+
+// アイコン付きカード（利用ルールなど）
+.icon-cards {
+  display: grid;
+  gap: 16px;
+  @include tab {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @include pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.icon-card {
+  display: flex;
+  // アイコンと文章を、カードの上下中央に配置
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: $shadow;
+  &__icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: $green-pale;
+    svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: $green-deep;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+  &__title {
+    margin-bottom: 4px;
+    font-size: 17px;
+  }
+  &__text {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+// 本文（プライバシーポリシー・お知らせ詳細）
+.prose {
+  h2 {
+    margin: 48px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid $green-pale;
+    font-size: 21px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  p,
+  ul,
+  ol {
+    margin-bottom: 1em;
+  }
+  ul {
+    padding-left: 1.4em;
+    list-style: disc;
+  }
+  ol {
+    padding-left: 1.4em;
+    list-style: decimal;
+  }
+}
+
+// ボタンを横に並べる
+// ボタンを横に並べる（文字数に関わらず、並んだボタン同士を同じ幅にそろえる）
+.btn-row {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 12px;
+  max-width: 100%;
+  // スマホでは余白を詰めて、2つ並んでも文字が折り返さないように
+  @include sp {
+    // スマホはボタンを左右中央に
+    display: grid;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 10px;
+    .btn {
+      padding: 10px 18px;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+  }
+}
+
+// ボタンを縦に並べる（いちばん長いボタンに幅をそろえる。画面より長い場合は折り返す）
+.btn-stack {
+  display: grid;
+  grid-template-columns: fit-content(100%);
+  gap: 10px;
+}
+
+// 余白の調整用
+.u-mt-24 {
+  margin-top: 24px;
+}
+
+.u-mb-28 {
+  margin-bottom: 28px;
+}
+
+.u-mb-32 {
+  margin-bottom: 32px;
+}
+
+// 猫の表示件数
+.cat-count {
+  margin: -16px 0 24px;
+}
+
+.form__check .form__req {
+  margin-left: 8px;
+}
+
+@media (max-width: 767px) {
+  .filter__btn {
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+}
+
+// JavaScriptが無効なときは、最初から猫を表示
+.no-js .plan__peek img {
+  transform: none;
+}
+
+.no-js .plan--recommend {
+  @include sp {
+    margin-top: $plan-peek-h;
+  }
+}
