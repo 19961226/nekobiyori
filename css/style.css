@@ -579,6 +579,14 @@ button {
   display: inline-block;
   margin-bottom: 20px;
 }
+@media (max-width: 767px) {
+.footer__logo {
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+}
 .footer__logo img {
   width: auto;
   height: 120px;
@@ -600,7 +608,12 @@ button {
 .footer__nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 4px 12px;
+}
+@media (min-width: 768px) {
+.footer__nav {
   gap: 4px 20px;
+}
 }
 @media (min-width: 768px) {
 .footer__nav {
@@ -613,6 +626,14 @@ button {
   gap: 8px;
   padding: 6px 0;
   font-size: 15px;
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+.footer__nav a {
+  gap: 6px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
 }
 .footer__nav a svg {
   width: 12px;
@@ -626,6 +647,16 @@ button {
 }
 .footer__sns {
   display: inline-flex;
+}
+@media (max-width: 767px) {
+.footer__sns {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+}
+.footer__sns {
   align-items: center;
   gap: 10px;
   margin-top: 28px;
