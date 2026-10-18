@@ -1720,6 +1720,7 @@ $plan-peek-h: 128px;
   @include sp {
     // スマホはボタンを左右中央に
     display: grid;
+    width: -webkit-fit-content;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
